@@ -1,4 +1,4 @@
-from models import User
+from models import User, Product
 from flask import Flask,request,jsonify,redirect,render_template, url_for, flash, session
 from neo4j import GraphDatabase
 from py2neo import Graph, Node, Relationship
@@ -10,7 +10,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(12)
 @app.route('/')
 def home():
-    return render_template('index.html')
+    lists = Product.getAll()
+    return render_template('index.html',products=lists)
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
