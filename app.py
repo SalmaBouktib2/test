@@ -3,6 +3,7 @@ from flask import Flask,request,jsonify,redirect,render_template, url_for, flash
 from neo4j import GraphDatabase
 from py2neo import Graph, Node, Relationship
 import os
+import models
 #driver=GraphDatabase.driver(uri=uri,auth=(username,pwd))
 #session=driver.session()
 
@@ -13,7 +14,10 @@ app.config['SECRET_KEY'] = os.urandom(12)
 @app.route('/')
 def home():
     lists = Product.getAll()
-    return render_template('index.html',products=lists)
+    if session.get('username') is not None:
+        return render_template('index.html', products=lists, username=session.get('username'))
+    else:
+        return render_template('index.html', products=lists)
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
@@ -21,7 +25,8 @@ def login():
         session['username'] = username
         print(session.get('username'))
         flash('Logged in.')
-        return render_template('index.html', username=username)
+        return redirect(url_for('home'))
+        #return render_template('index.html', username=username)
     return render_template('login.html')
 
 
@@ -47,8 +52,29 @@ def product():
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    if "cart" not in session:
+        flash("There is nothing in your cart.")
+        return render_template("cart.html", display_cart={}, total=0)
+    else:
+        items = session["cart"]
+        dict_of_prod = {}
+        total_price = 0
+        for id in items:
+            product = models.getProdByID(id)
+            total_price += product['price']
+            dict_of_prod[product.identity] = {"name": product['name'], "price": product['price']}
 
+        return render_template("cart.html", display_cart=dict_of_prod, total=total_price)
+
+@app.route("/add_to_cart/<int:id>")
+def add_to_cart(id):
+    if "cart" not in session:
+        session["cart"] = []
+
+    session["cart"].append(id)
+
+    flash("Successfully added to cart!")
+    return redirect("/cart")
 '''
 @app.route('/', methods=['GET','POST'])
 def register():
@@ -74,4 +100,4 @@ def display_node():
     data=results.data()
     return(jsonify(data))'''
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)

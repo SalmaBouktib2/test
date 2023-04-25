@@ -82,7 +82,7 @@
               <i class="bx bx-heart"></i>
               <span class="d-flex">0</span>
             </div>
-            <a href="cart.html" class="icon">
+            <a href={{url_for('cart')}} class="icon">
               <i class="bx bx-cart"></i>
               <span class="d-flex">0</span>
             </a>
@@ -349,7 +349,7 @@
           <ul class="icons">
             <li><i class="bx bx-heart"></i></li>
             <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
+           <a href="/add_to_cart/{{p.identity}}"> <li><i class="bx bx-cart"></i></li></a>
           </ul>
         </div>
         {% set i = i +1 %}

@@ -13,6 +13,8 @@ with open("cred.txt") as f1:
 print(username,pwd,uri)
 graph = Graph("bolt://localhost:7687")
 node_matcher = NodeMatcher(graph)
+def getProdByID(id):
+    return node_matcher.get(id)
 class User(GraphObject):
     def __init__(self, username):
         self.username = username
@@ -29,8 +31,10 @@ class User(GraphObject):
         user = Node('User', username=self.username, password=password, fullname=fullname, sexe=sexe, birth=birth)
         graph.create(user)
 class Product(GraphObject):
-    def __init__(self):
-        pass
+    def __init__(self, id, name, price):
+        self.id = id
+        self.name = name
+        self.price = price
     @staticmethod
     def getAll():
         nodes = list(node_matcher.match("PRODUCT"))

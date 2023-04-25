@@ -9,7 +9,7 @@
       href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
     />
     <!-- Custom StyleSheet -->
-    <link rel="stylesheet" href="./css/styles.css" />
+     <link rel= "stylesheet"  href= "{{ url_for('static',filename='css/styles.css') }}">
     <title>Your Cart</title>
   </head>
   <body>
@@ -30,7 +30,7 @@
 
         <ul class="nav-list d-flex">
           <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
             <a href="product.html" class="nav-link">Shop</a>
@@ -93,90 +93,27 @@
           <th>Quantity</th>
           <th>Subtotal</th>
         </tr>
+        {% for key, value in display_cart.items() %}
         <tr>
           <td>
             <div class="cart-info">
-              <img src="./images/product-2.jpg" alt="" />
+              <img src="{{ url_for('static',filename='images/product-'+key|string+'.jpg') }}" alt="" />
               <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $50.00</span> <br />
-                <a href="#">remove</a>
+                <p>{{value["name"]}}</p>
+                <span>Price: {{value["price"]}}</span> <br />
               </div>
             </div>
           </td>
           <td><input type="number" value="1" min="1" /></td>
-          <td>$50.00</td>
+          <td>{{value["price"]}}</td>
         </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-3.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $90.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$90.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-4.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-5.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="cart-info">
-              <img src="./images/product-6.jpg" alt="" />
-              <div>
-                <p>Boy’s T-Shirt</p>
-                <span>Price: $60.00</span> <br />
-                <a href="#">remove</a>
-              </div>
-            </div>
-          </td>
-          <td><input type="number" value="1" min="1" /></td>
-          <td>$60.00</td>
-        </tr>
+        {% endfor %}
       </table>
       <div class="total-price">
         <table>
           <tr>
-            <td>Subtotal</td>
-            <td>$200</td>
-          </tr>
-          <tr>
-            <td>Tax</td>
-            <td>$50</td>
-          </tr>
-          <tr>
             <td>Total</td>
-            <td>$250</td>
+            <td>{{"%.2f" % total}}</td>
           </tr>
         </table>
         <a href="#" class="checkout btn">Proceed To Checkout</a>
@@ -290,6 +227,7 @@
     </footer>
 
     <!-- Custom Script -->
-    <script src="./js/index.js"></script>
+    <script src="{{ url_for('static',filename='js/slider.js') }}"></script>
+  <script src="{{ url_for('static',filename='js/index.js') }}"></script>
   </body>
 </html>
