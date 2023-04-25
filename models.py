@@ -21,8 +21,12 @@ class User(GraphObject):
         user = User.match(graph, self.username).first()
         return user
 
-    def register(self, password):
+    def registerSlm(self, password):
         user = Node('User', username=self.username, password=password)
+        graph.create(user)
+
+    def register(self, fullname, sexe, birth, password):
+        user = Node('User', username=self.username, password=password, fullname=fullname, sexe=sexe, birth=birth)
         graph.create(user)
 class Product(GraphObject):
     def __init__(self):
