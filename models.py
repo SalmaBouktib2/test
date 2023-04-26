@@ -15,6 +15,12 @@ graph = Graph("bolt://localhost:7687")
 node_matcher = NodeMatcher(graph)
 def getProdByID(id):
     return node_matcher.get(id)
+def getUserByName(name):
+    return node_matcher.match("User", username=name).first()
+def getUserByName(name):
+    return node_matcher.match("User", username=name).first()
+def addRelBuy(u,p):
+    graph.create(Relationship(u, 'BUY', p))
 class User(GraphObject):
     def __init__(self, username):
         self.username = username

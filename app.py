@@ -75,6 +75,19 @@ def add_to_cart(id):
 
     flash("Successfully added to cart!")
     return redirect("/cart")
+
+@app.route('/buy')
+def confirmCart():
+    if "username" not in session:
+        return redirect(url_for('login'))
+    else:
+        items = session["cart"]
+        user = models.getUserByName(session.get('username'))
+        for id in items:
+            product = models.getProdByID(id)
+            models.addRelBuy(user,product)
+        return redirect(url_for('home'))
+
 '''
 @app.route('/', methods=['GET','POST'])
 def register():
