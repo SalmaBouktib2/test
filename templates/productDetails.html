@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:input="http://www.w3.org/1999/html">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,8 +8,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
     />
-    <!-- Custom StyleSheet -->
-    <link rel="stylesheet" href="./css/styles.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ <!-- Custom StyleSheet -->
+    <link rel= "stylesheet"  href= "{{ url_for('static',filename='css/styles.css') }}">
     <title>Boy’s T-Shirt - Codevo</title>
   </head>
 
@@ -63,68 +65,48 @@
           </li>
         </ul>
 
-        <div class="icons d-flex">
-          <a href="login.html" class="icon">
-            <i class="bx bx-user"></i>
-          </a>
-          <div class="icon">
-            <i class="bx bx-search"></i>
-          </div>
-          <div class="icon">
-            <i class="bx bx-heart"></i>
-            <span class="d-flex">0</span>
-          </div>
-          <a href="cart.html" class="icon">
-            <i class="bx bx-cart"></i>
-            <span class="d-flex">0</span>
-          </a>
-        </div>
+    </div>    </div>
 
-        <div class="hamburger">
-          <i class="bx bx-menu-alt-left"></i>
-        </div>
-      </div>
-    </div>
 
     <!-- Product Details -->
     <section class="section product-detail">
       <div class="details container">
         <div class="left image-container">
           <div class="main">
-            <img src="./images/product-8.jpg" id="zoom" alt="" />
+            <img src="{{url_for('static',filename='images/product-'+prod.id|string+'.jpg')}}" id="zoom" alt="" />
           </div>
         </div>
         <div class="right">
-          <span>Home/T-shirt</span>
-          <h1>Boy’s T-Shirt By Handsome</h1>
-          <div class="price">$50</div>
-          <form>
+          <span>Home/{{prod.category}}</span>
+          <h1>{{prod.name}}</h1>
+          <div class="price">{{prod.price}} DHs</div>
+
             <div>
-              <select>
-                <option value="Select Size" selected disabled>
-                  Select Size
-                </option>
-                <option value="1">32</option>
-                <option value="2">42</option>
-                <option value="3">52</option>
-                <option value="4">62</option>
-              </select>
-              <span><i class="bx bx-chevron-down"></i></span>
+              <p>size available : {{prod.size}}</p>
             </div>
-          </form>
+
           <form class="form">
             <input type="text" placeholder="1" />
             <a href="cart.html" class="addCart">Add To Cart</a>
-          </form>
-          <h3>Product Detail</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero minima
-            delectus nulla voluptates nesciunt quidem laudantium, quisquam
-            voluptas facilis dicta in explicabo, laboriosam ipsam suscipit!
-          </p>
+
+          <div>
+            <h3>Product Detail</h3>
+            <p>
+              {{prod.detail}}
+            </p>
+          </div>
+         <div>
+              <h3>Do you like the product</h3>
+           <p> avec {{username}}</p>
+
+
+         </div>
+            </form>
         </div>
       </div>
     </section>
+
+
 
     <!-- Related -->
     <section class="section featured">
@@ -239,6 +221,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="./js/zoomsl.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
     <script>
       $(function () {
         console.log("hello");

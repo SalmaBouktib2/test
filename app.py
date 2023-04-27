@@ -10,10 +10,30 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(12)
 
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def home():
     lists = Product.getAll()
-    return render_template('index.html',products=lists)
+    if session.get('username') is not None:
+        print("------------------------------------------home-------------------------------------------------------")
+        prod_id = request.form['id_pro']
+        print(prod_id)
+        allPro = Product.getAllID()
+        p = None
+        for item in allPro:
+            print("item :" + str(item))
+            if str(item) == prod_id:
+
+                p = Product.getProduct(item)
+                break
+
+        print(p)
+        user = session.get('username')
+        u = User.getUserByName(session.get('username'))
+        User.isLike(u, p)
+        print('like')
+        return render_template('index.html', products=lists, username=session.get('username'))
+    else:
+        return render_template('index.html', products=lists)
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
@@ -21,7 +41,8 @@ def login():
         session['username'] = username
         print(session.get('username'))
         flash('Logged in.')
-        return render_template('index.html', username=username)
+        lists = Product.getAll()
+        return render_template('index.html', username=username, products=lists)
     return render_template('login.html')
 
 
@@ -40,6 +61,19 @@ def signup():
 
     return render_template('signup.html')
 
+@app.route('/productDetails/<int:prod_id>', methods=['GET','POST'])
+def isLike(prod_id):
+    if "username" not in session:
+        return redirect(url_for('login'))
+    else:
+        if request.method == 'POST':
+            p = Product.getProduct(prod_id)
+            user = session.get('username')
+            u = User.getUserByName(session.get('username'))
+            User.addLike(u,p)
+            return render_template('productDetails.html', prod=p)
+        return render_template('productDetails.html', prod=Product.getProduct(prod_id), username=session.get('username') )
+
 
 @app.route('/product')
 def product():
@@ -48,6 +82,32 @@ def product():
 @app.route('/cart')
 def cart():
     return render_template('cart.html')
+
+@app.route('/productDetails/<int:prod_id>')
+def productDetails(prod_id):
+    p = Product.getProduct(prod_id)
+    if session.get('username') is not None:
+        print("------------------------------------------Detail-------------------------------------------------------")
+        prod_id = request.form['id_pro']
+        print(prod_id)
+        allPro = Product.getAllID()
+
+        for item in allPro:
+            print("item :" + str(item))
+            if str(item) == prod_id:
+                p = Product.getProduct(item)
+                break
+
+        print(p)
+        user = session.get('username')
+        u = User.getUserByName(session.get('username'))
+        User.isLike(u, p)
+        print('like')
+        return render_template('index.html', prod=p, username=session.get('username'))
+    else:
+        return render_template('productDetails.html', prod=p)
+
+
 
 '''
 @app.route('/', methods=['GET','POST'])

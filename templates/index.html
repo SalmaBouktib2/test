@@ -79,10 +79,10 @@
               <i class="bx bx-search"></i>
             </div>
             <div class="icon">
-              <i class="bx bx-heart"></i>
+
               <span class="d-flex">0</span>
             </div>
-            <a href="cart.html" class="icon">
+            <a href="{{ url_for('cart') }}" class="icon">
               <i class="bx bx-cart"></i>
               <span class="d-flex">0</span>
             </a>
@@ -164,15 +164,16 @@
       <div class="product-center">
         <div class="product-item">
           <div class="overlay">
-            <a href="productDetails.html" class="product-thumb">
+            <a href="" class="product-thumb">
               <img src="{{ url_for('static',filename='images/product-1.jpg') }}" alt="" />
             </a>
           </div>
           <div class="product-info">
             <span>MEN'S CLOTHES</span>
-            <a href="productDetails.html">Quis Nostrud Exercitation</a>
+            <a href="">Quis Nostrud Exercitation</a>
             <h4>$700</h4>
           </div>
+
           <ul class="icons">
             <li><i class="bx bx-heart"></i></li>
             <li><i class="bx bx-search"></i></li>
@@ -334,29 +335,37 @@
       <div class="product-center">
         {%set i =1 %}
         {% for p in products%}
+
         <div class="product-item">
           <div class="overlay">
+
             <a href="" class="product-thumb">
               <img src="{{ url_for('static',filename='images/product-'+loop.index|string+'.jpg') }}" alt="" />
             </a>
             <span class="discount">50%</span>
           </div>
+
           <div class="product-info">
+            <p>{{ p.id}}</p>
             <span>MEN'S CLOTHES</span>
-            <a href="">{{p.name}}</a>
+            <a href="{{ url_for('productDetails', prod_id=p['id'])}}">{{p['name']}}</a>
             <h4>{{p.price}} DH</h4>
+            <form action="{{ url_for('home', prod_id=p['id'])}}" method="post">
+                <input type="submit" name="id_po" value="I like it" ><i class="bx bx-happy-heart-eyes"></i>
+
+                <input type="text" name="id_pro" value="{{p.id}}" hidden />
+            </form>
           </div>
-          <ul class="icons">
-            <li><i class="bx bx-heart"></i></li>
-            <li><i class="bx bx-search"></i></li>
-            <li><i class="bx bx-cart"></i></li>
-          </ul>
+
+
+
+
         </div>
         {% set i = i +1 %}
         {% endfor %}
       </div>
-    </section>
 
+    </section>
     <!-- Contact -->
     <section class="section contact">
       <div class="row">
