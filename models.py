@@ -14,13 +14,13 @@ print(username,pwd,uri)
 graph = Graph("bolt://localhost:7687")
 node_matcher = NodeMatcher(graph)
 def getProdByID(id):
-    return node_matcher.get(id)
+    return node_matcher.match("PRODUCT", id=id).first()
 def getUserByName(name):
-    return node_matcher.match("User", username=name).first()
-def getUserByName(name):
-    return node_matcher.match("User", username=name).first()
+    return node_matcher.match("User", fullname=name).first()
 def addRelBuy(u,p):
     graph.create(Relationship(u, 'BUY', p))
+def addLike(u, p):
+    graph.create(Relationship(u, 'LIKE', p))
 class User(GraphObject):
     def __init__(self, username):
         self.username = username
@@ -36,6 +36,8 @@ class User(GraphObject):
     def register(self, fullname, sexe, birth, password):
         user = Node('User', username=self.username, password=password, fullname=fullname, sexe=sexe, birth=birth)
         graph.create(user)
+
+
 class Product(GraphObject):
     def __init__(self, id, name, price):
         self.id = id

@@ -62,7 +62,7 @@ def cart():
         for id in items:
             product = models.getProdByID(id)
             total_price += product['price']
-            dict_of_prod[product.identity] = {"name": product['name'], "price": product['price']}
+            dict_of_prod[product['id']] = {"name": product['name'], "price": product['price']}
 
         return render_template("cart.html", display_cart=dict_of_prod, total=total_price)
 
@@ -87,6 +87,19 @@ def confirmCart():
             product = models.getProdByID(id)
             models.addRelBuy(user,product)
         session.pop('cart', None)
+        return redirect(url_for('home'))
+
+@app.route('/productDetails/<int:prod_id>', methods=['GET','POST'])
+def isLike(prod_id):
+    if "username" not in session:
+        return redirect(url_for('login'))
+    else:
+        p = models.getProdByID(prod_id)
+        print("***************prod",p)
+        user = session.get('username')
+        u = models.getUserByName(session.get('username'))
+        print("***************user", u)
+        models.addLike(u,p)
         return redirect(url_for('home'))
 
 '''
