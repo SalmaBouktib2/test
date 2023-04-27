@@ -79,29 +79,15 @@
         <div class="right">
           <span>Home/{{prod.category}}</span>
           <h1>{{prod.name}}</h1>
-          <div class="price">{{prod.price}} DHs</div>
-
-            <div>
-              <p>size available : {{prod.size}}</p>
-            </div>
+          <div class="price">{{prod.price}} DHs </div>
+          <h3>Product Detail :</h3>
+          <span>{{prod.description}}</span>
+          <h3>Color : </h3>
+          <span>{{prod.color}}</span><br/><br/><br/>
 
           <form class="form">
-            <input type="text" placeholder="1" />
             <a href="cart.html" class="addCart">Add To Cart</a>
-
-          <div>
-            <h3>Product Detail</h3>
-            <p>
-              {{prod.detail}}
-            </p>
-          </div>
-         <div>
-              <h3>Do you like the product</h3>
-           <p> avec {{username}}</p>
-
-
-         </div>
-            </form>
+          </form>
         </div>
       </div>
     </section>

@@ -346,15 +346,10 @@
           </div>
 
           <div class="product-info">
-            <p>{{ p.id}}</p>
-            <span>MEN'S CLOTHES</span>
+            <span>{{ p.category }}</span>
             <a href="{{ url_for('productDetails', prod_id=p['id'])}}">{{p['name']}}</a>
             <h4>{{p.price}} DH</h4>
-            <form action="{{ url_for('home', prod_id=p['id'])}}" method="post">
-                <input type="submit" name="id_po" value="I like it" ><i class="bx bx-happy-heart-eyes"></i>
 
-                <input type="text" name="id_pro" value="{{p.id}}" hidden />
-            </form>
           </div>
 
 
