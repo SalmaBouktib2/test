@@ -70,8 +70,8 @@ def cart():
 def add_to_cart(id):
     if "cart" not in session:
         session["cart"] = []
-
-    session["cart"].append(id)
+    if id not in session["cart"]:
+        session["cart"].append(id)
 
     flash("Successfully added to cart!")
     return redirect("/cart")
@@ -86,6 +86,7 @@ def confirmCart():
         for id in items:
             product = models.getProdByID(id)
             models.addRelBuy(user,product)
+        session.pop('cart', None)
         return redirect(url_for('home'))
 
 '''
