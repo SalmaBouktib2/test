@@ -103,30 +103,9 @@ def isLike(prod_id):
         return redirect(url_for('home'))
 
 
-
 @app.route('/productDetails/<int:prod_id>')
 def productDetails(prod_id):
     p = Product.getProduct(prod_id)
-    if session.get('username') is not None:
-        print("------------------------------------------Detail-------------------------------------------------------")
-        prod_id = request.form['id_pro']
-        print(prod_id)
-        allPro = Product.getAllID()
-
-        for item in allPro:
-            print("item :" + str(item))
-            if str(item) == prod_id:
-                p = Product.getProduct(item)
-                break
-
-        print(p)
-        user = session.get('username')
-        u = User.getUserByName(session.get('username'))
-        User.isLike(u, p)
-        print('like')
-        return redirect(url_for('home'))
-    else:
-        return render_template('productDetails.html', prod=p)
-
+    return render_template('productDetails.html', prod=p)
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
