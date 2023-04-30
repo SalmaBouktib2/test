@@ -9,6 +9,7 @@ def getProdByID(id):
     return node_matcher.match("PRODUCT", id=id).first()
 def getUserByName(name):
     return node_matcher.match("USER", fullname=name).first()
+
 def addRelBuy(u,p):
     graph.create(Relationship(u, 'BUY', p))
 def addLike(u, p):
@@ -23,15 +24,13 @@ class User(GraphObject):
         user = User.match(graph, self.username).first()
         return user
 
-    def registerSlm(self, password):
-        user = Node('USER', username=self.username, password=password)
-        graph.create(user)
 
     def register(self, fullname, sexe, birth, password):
         user = Node('USER', username=self.username, password=password, fullname=fullname, sexe=sexe, birth=birth)
         graph.create(user)
     def getUserByName(name):
         return node_matcher.match("USER", fullname=name).first()
+
 
 
 class Product(GraphObject):
