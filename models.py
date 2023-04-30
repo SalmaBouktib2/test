@@ -36,6 +36,8 @@ class User(GraphObject):
     def register(self, fullname, sexe, birth, password):
         user = Node('User', username=self.username, password=password, fullname=fullname, sexe=sexe, birth=birth)
         graph.create(user)
+    def getUserByName(name):
+        return node_matcher.match("User", username=name).first()
 
 
 class Product(GraphObject):
@@ -47,3 +49,10 @@ class Product(GraphObject):
     def getAll():
         nodes = list(node_matcher.match("PRODUCT"))
         return nodes
+
+    @staticmethod
+    def getAllID():
+        return graph.run("match (n:PRODUCT) return n.id")
+    def getProduct(prod_id):
+        node = node_matcher.match("PRODUCT").where(id=prod_id).first()
+        return node

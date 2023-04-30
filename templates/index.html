@@ -343,12 +343,12 @@
           </div>
           <div class="product-info">
             <span>MEN'S CLOTHES</span>
-            <a href="">{{p.name}}</a>
+            <a href="/productDetails/{{p.id}}">{{p.name}}</a>
             <h4>MAD {{p.price}} </h4>
           </div>
           <ul class="icons">
-            <li><a href="/productDetails/{{p.id}}"><i class="bx bx-heart"></i></a></li>
-            <li><i class="bx bx-search"></i></li>
+            <li><a href="/likeProduct/{{p.id}}"><i class="bx bx-heart"></i></a></li>
+            <a href="/productDetails/{{p.id}}"><li><i class="bx bx-search"></i></li></a>
            <a href="/add_to_cart/{{p.id}}"> <li><i class="bx bx-cart"></i></li></a>
           </ul>
         </div>
