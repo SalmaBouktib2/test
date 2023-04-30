@@ -66,7 +66,7 @@ Header
 }
 
 .top-nav {
-  background-color: var(--green);
+  background-color: #00b0b5;
   font-size: 1.3rem;
   color: var(--white);
 }
@@ -109,7 +109,7 @@ Navigation
 }
 
 .nav-center .nav-link:hover {
-  color: var(--green);
+  color: #00b0b5;
 }
 
 .nav-center .hamburger {
@@ -137,7 +137,7 @@ Navigation
   position: absolute;
   top: 3px;
   right: -3px;
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: var(--white);
   border-radius: 50%;
   font-size: 1.3rem;
@@ -248,7 +248,7 @@ Hero Area
   padding: 1rem 3rem;
   font-size: 1.6rem;
   margin-top: 1rem;
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: white;
 }
 
@@ -493,7 +493,7 @@ Hero Media Query
 }
 
 .product-info a:hover {
-  color: var(--green);
+  color: #00b0b5;
 }
 
 .product-item .icons {
@@ -540,7 +540,7 @@ Hero Media Query
 }
 
 .product-item .icons li:hover {
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: var(--white);
 }
 
@@ -577,7 +577,7 @@ Hero Media Query
   position: absolute;
   top: 1rem;
   left: 1rem;
-  background-color: var(--green);
+  background-color: #00b0b5;
   padding: 0.5rem 1rem;
   color: var(--white);
   border-radius: 2rem;
@@ -747,7 +747,7 @@ Hero Media Query
 }
 
 .btn-1 {
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: var(--white);
   display: inline-block;
   border-radius: 1rem;
@@ -774,7 +774,7 @@ Hero Media Query
   position: absolute;
   top: 0;
   right: 0;
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: white;
   margin: 0.5rem;
   padding: 1rem 3rem;
@@ -807,7 +807,7 @@ Hero Media Query
 /* Footer */
 .footer {
   padding: 7rem 1rem;
-  background-color: var(--green);
+  background-color: #00b0b5;
 }
 
 footer .row {
@@ -888,7 +888,7 @@ footer .row {
   top: 2rem;
   right: 2rem;
   padding: 0.5rem;
-  background-color: var(--green);
+  background-color: #00b0b5;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -939,7 +939,7 @@ footer .row {
 }
 
 .right-content h1 span {
-  color: var(--green);
+  color: #00b0b5;
 }
 
 .right-content p {
@@ -954,7 +954,7 @@ footer .row {
   text-indent: 1rem;
   margin-bottom: 1.6rem;
   border-radius: 3rem;
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: white;
   font-size: 1.8rem;
   border: none;
@@ -981,7 +981,7 @@ footer .row {
 }
 
 .right-content a:hover {
-  background-color: var(--green);
+  background-color: #00b0b5;
   border: 1px solid var(--grey2);
   color: var(--black);
 }
@@ -1128,7 +1128,7 @@ form span {
 .pagination span {
   display: inline-block;
   padding: 1rem 1.5rem;
-  border: 1px solid var(--green);
+  border: 1px solid #00b0b5;
   font-size: 1.8rem;
   margin-bottom: 2rem;
   cursor: pointer;
@@ -1136,8 +1136,8 @@ form span {
 }
 
 .pagination span:hover {
-  border: 1px solid var(--green);
-  background-color: var(--green);
+  border: 1px solid #00b0b5;
+  background-color: #00b0b5;
   color: #fff;
 }
 
@@ -1160,7 +1160,7 @@ th {
   text-align: left;
   padding: 0.5rem;
   color: #fff;
-  background-color: var(--green);
+  background-color: #00b0b5;
   font-weight: normal;
 }
 
@@ -1193,7 +1193,7 @@ td img {
 }
 
 .total-price table {
-  border-top: 3px solid var(--green);
+  border-top: 3px solid #00b0b5;
   width: 100%;
   max-width: 35rem;
 }
@@ -1208,7 +1208,7 @@ th:last-child {
 
 .checkout {
   display: inline-block;
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: white;
   padding: 1rem;
   margin-top: 1rem;
@@ -1260,7 +1260,7 @@ th:last-child {
 .product-detail .right .price {
   font-size: 600;
   font-size: 2rem;
-  color: var(--green);
+  color: #00b0b5;
   margin-bottom: 2rem;
 }
 
@@ -1305,7 +1305,7 @@ th:last-child {
 }
 
 .product-detail .form .addCart {
-  background: var(--green);
+  background: #00b0b5;
   padding: 0.8rem 4rem;
   color: #fff;
   border-radius: 3rem;
@@ -1394,7 +1394,7 @@ th:last-child {
   font-size: 1.6rem;
   padding: 1rem 3rem;
   margin-right: 1.5rem;
-  background-color: var(--green);
+  background-color: #00b0b5;
   color: white;
   cursor: pointer;
 }
