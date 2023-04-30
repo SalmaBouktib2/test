@@ -128,29 +128,5 @@ def productDetails(prod_id):
     else:
         return render_template('productDetails.html', prod=p)
 
-'''
-@app.route('/', methods=['GET','POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        User(username).register(password)
-        session['username'] = username
-        print(session.get('username'))
-        flash('Logged in.')
-        return redirect(url_for('welcome'))
-    return render_template('index2.html')
-@app.route('/welcome')
-def welcome():
-    username = session.get('username')
-    return render_template('welcome.html', username=username)
-@app.route("/display",methods=["GET","POST"])
-def display_node():
-    q1="""
-    match (n) return n
-    """
-    results=session.run(q1)
-    data=results.data()
-    return(jsonify(data))'''
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
