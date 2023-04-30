@@ -3,6 +3,7 @@ from flask import Flask,request,jsonify,redirect,render_template, url_for, flash
 from neo4j import GraphDatabase
 from py2neo import Graph, Node, Relationship
 import os
+import models
 #driver=GraphDatabase.driver(uri=uri,auth=(username,pwd))
 #session=driver.session()
 
@@ -10,27 +11,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(12)
 
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/')
 def home():
     lists = Product.getAll()
     if session.get('username') is not None:
-        print("------------------------------------------home-------------------------------------------------------")
-        prod_id = request.form['id_pro']
-        print(prod_id)
-        allPro = Product.getAllID()
-        p = None
-        for item in allPro:
-            print("item :" + str(item))
-            if str(item) == prod_id:
-
-                p = Product.getProduct(item)
-                break
-
-        print(p)
-        user = session.get('username')
-        u = User.getUserByName(session.get('username'))
-        User.isLike(u, p)
-        print('like')
         return render_template('index.html', products=lists, username=session.get('username'))
     else:
         return render_template('index.html', products=lists)
@@ -41,8 +25,8 @@ def login():
         session['username'] = username
         print(session.get('username'))
         flash('Logged in.')
-        lists = Product.getAll()
-        return render_template('index.html', username=username, products=lists)
+        return redirect(url_for('home'))
+        #return render_template('index.html', username=username)
     return render_template('login.html')
 
 
@@ -61,19 +45,6 @@ def signup():
 
     return render_template('signup.html')
 
-@app.route('/productDetails/<int:prod_id>', methods=['GET','POST'])
-def isLike(prod_id):
-    if "username" not in session:
-        return redirect(url_for('login'))
-    else:
-        if request.method == 'POST':
-            p = Product.getProduct(prod_id)
-            user = session.get('username')
-            u = User.getUserByName(session.get('username'))
-            User.addLike(u,p)
-            return render_template('productDetails.html', prod=p)
-        return render_template('productDetails.html', prod=Product.getProduct(prod_id), username=session.get('username') )
-
 
 @app.route('/product')
 def product():
@@ -81,7 +52,57 @@ def product():
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    if "cart" not in session:
+        flash("There is nothing in your cart.")
+        return render_template("cart.html", display_cart={}, total=0)
+    else:
+        items = session["cart"]
+        dict_of_prod = {}
+        total_price = 0
+        for id in items:
+            product = models.getProdByID(id)
+            total_price += product['price']
+            dict_of_prod[product['id']] = {"name": product['name'], "price": product['price']}
+
+        return render_template("cart.html", display_cart=dict_of_prod, total=total_price)
+
+@app.route("/add_to_cart/<int:id>")
+def add_to_cart(id):
+    if "cart" not in session:
+        session["cart"] = []
+    if id not in session["cart"]:
+        session["cart"].append(id)
+
+    flash("Successfully added to cart!")
+    return redirect("/cart")
+
+@app.route('/buy')
+def confirmCart():
+    if "username" not in session:
+        return redirect(url_for('login'))
+    else:
+        items = session["cart"]
+        user = models.getUserByName(session.get('username'))
+        for id in items:
+            product = models.getProdByID(id)
+            models.addRelBuy(user,product)
+        session.pop('cart', None)
+        return redirect(url_for('home'))
+
+@app.route('/likeProduct/<int:prod_id>', methods=['GET','POST'])
+def isLike(prod_id):
+    if "username" not in session:
+        return redirect(url_for('login'))
+    else:
+        p = models.getProdByID(prod_id)
+        print("***************prod",p)
+        user = session.get('username')
+        u = models.getUserByName(session.get('username'))
+        print("***************user", u)
+        models.addLike(u,p)
+        return redirect(url_for('home'))
+
+
 
 @app.route('/productDetails/<int:prod_id>')
 def productDetails(prod_id):
@@ -103,35 +124,9 @@ def productDetails(prod_id):
         u = User.getUserByName(session.get('username'))
         User.isLike(u, p)
         print('like')
-        return render_template('index.html', prod=p, username=session.get('username'))
+        return redirect(url_for('home'))
     else:
         return render_template('productDetails.html', prod=p)
 
-
-
-'''
-@app.route('/', methods=['GET','POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        User(username).register(password)
-        session['username'] = username
-        print(session.get('username'))
-        flash('Logged in.')
-        return redirect(url_for('welcome'))
-    return render_template('index2.html')
-@app.route('/welcome')
-def welcome():
-    username = session.get('username')
-    return render_template('welcome.html', username=username)
-@app.route("/display",methods=["GET","POST"])
-def display_node():
-    q1="""
-    match (n) return n
-    """
-    results=session.run(q1)
-    data=results.data()
-    return(jsonify(data))'''
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
