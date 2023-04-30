@@ -131,6 +131,6 @@ def productDetails(prod_id):
     p = Product.getProduct(prod_id)
     return render_template('productDetails.html', prod=p)
 
-
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)
+

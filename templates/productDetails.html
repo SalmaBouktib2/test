@@ -58,7 +58,7 @@
               <i class="bx bx-heart"></i>
               <span class="d-flex">0</span>
             </div>
-            <a href="cart.html" class="icon">
+            <a href={{url_for('cart')}} class="icon">
               <i class="bx bx-cart"></i>
               <span class="d-flex">0</span>
             </a>
@@ -86,7 +86,7 @@
           <span>{{prod.color}}</span><br/><br/><br/>
 
           <form class="form">
-            <a href="cart.html" class="addCart">Add To Cart</a>
+            <a href="/add_to_cart/{{prod.id}}" class="addCart">Add To Cart</a>
           </form>
         </div>
       </div>

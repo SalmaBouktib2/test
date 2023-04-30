@@ -35,7 +35,7 @@
       </div>
       <div class="navigation">
         <div class="nav-center container d-flex">
-        <a href="/" class="logo"><h1>Dans</h1></a>
+        <a href="/" class="logo"><h1>Bloom</h1></a>
 
           <ul class="nav-list d-flex">
             <li class="nav-item">
@@ -339,10 +339,10 @@
             <a href="" class="product-thumb">
               <img src="{{ url_for('static',filename='images/product-'+p.id|string+'.jpg') }}" alt="" />
             </a>
-            <span class="discount">50%</span>
           </div>
           <div class="product-info">
             <span style="text-transform:uppercase">{{p.category}}</span>
+
             <a href="/productDetails/{{p.id}}">{{p.name}}</a>
             <h4>MAD {{p.price}} </h4>
           </div>
@@ -413,7 +413,7 @@
       </div>
       <div class="popup-left">
         <div class="popup-img-container">
-          <img class="popup-img" src="./images/popup.jpg" alt="popup">
+          <img class="popup-img" src="{{ url_for('static',filename='images/popup.jpg') }}" alt="popup">
         </div>
       </div>
       <div class="popup-right">
