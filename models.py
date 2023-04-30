@@ -44,6 +44,21 @@ class Product(GraphObject):
         return nodes
 
     @staticmethod
+    def getAllCasual():
+        nodes = list(node_matcher.match("PRODUCT").where(category="casual"))
+        return nodes
+
+    @staticmethod
+    def getAllSport():
+        nodes = list(node_matcher.match("PRODUCT").where(category="sport"))
+        return nodes
+
+    @staticmethod
+    def getAllFormal():
+        nodes = list(node_matcher.match("PRODUCT").where(category="formal"))
+        return nodes
+
+    @staticmethod
     def getAllID():
         return graph.run("match (n:PRODUCT) return n.id")
     def getProduct(prod_id):

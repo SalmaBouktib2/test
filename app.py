@@ -53,6 +53,22 @@ def signup():
 def product():
     return render_template('product.html')
 
+@app.route('/getAllSport')
+def getAllSport():
+    lists = Product.getAllSport()
+    return render_template('product.html', products=lists)
+
+@app.route('/getAllCasual')
+def getAllCasual():
+    lists = Product.getAllCasual()
+    return render_template('product.html', products=lists)
+
+@app.route('/getAllFormal')
+def getAllFormal():
+    lists = Product.getAllFormal()
+    return render_template('product.html', products=lists)
+
+
 
 @app.route('/cart')
 def cart():
