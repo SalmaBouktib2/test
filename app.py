@@ -15,10 +15,11 @@ app.config['SECRET_KEY'] = os.urandom(12)
 @app.route('/')
 def home():
     lists = Product.getAll()
+    trend = models.trending()
     if session.get('username') is not None:
-        return render_template('index.html', products=lists, username=session.get('username'))
+        return render_template('index.html', products=lists, username=session.get('username'),trends=trend)
     else:
-        return render_template('index.html', products=lists)
+        return render_template('index.html', products=lists,trends=trend)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -84,7 +85,8 @@ def cart():
             total_price += product['price']
             dict_of_prod[product['id']] = {"name": product['name'], "price": product['price']}
 
-        return render_template("cart.html", display_cart=dict_of_prod, total=total_price)
+        list = models.Cartrecom(session.get('username'))
+        return render_template("cart.html", display_cart=dict_of_prod, total=total_price, rec=list)
 
 
 @app.route("/add_to_cart/<int:id>")
@@ -136,5 +138,5 @@ def productDetails(prod_id):
     return render_template('productDetails.html', prod=p, productsRecom=productsRecom,recomByPople=recomByPople,boughtTogether=boughtTogether)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)
 
