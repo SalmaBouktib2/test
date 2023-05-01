@@ -119,7 +119,7 @@
         <a href="{{url_for('confirmCart')}}" class="checkout btn">Confirm Cart </a>
       </div>
     </div>
-
+{% if rec|length > 0:  %}
     <!-- Latest Products -->
     <section class="section featured">
       <div class="top container">
@@ -149,7 +149,7 @@
         {% endfor %}
       </div>
     </section>
-
+    {% endif %}
     <!-- Footer -->
     <footer class="footer">
       <div class="row">

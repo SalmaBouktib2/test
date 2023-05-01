@@ -44,8 +44,8 @@ def getBrandByID(idPr):
 
 def boughtTogether(idPr):
     query = """ match ((user:USER)-[:BUY]->(prod:PRODUCT{id: %d})) 
-match ((otherU:USER)-[:BUY]->(otherP:PRODUCT)) where user.id = otherU.id and otherP.id <>4 and prod.color = otherP.color and prod.category = otherP.category return DISTINCT otherP"""
-    query = query % (idPr)
+match ((otherU:USER)-[:BUY]->(otherP:PRODUCT)) where user.id = otherU.id and otherP.id <> %d and prod.color = otherP.color and prod.category = otherP.category return DISTINCT otherP"""
+    query = query % (idPr, idPr)
     news_ids = []
     for res in graph.run(query):
         news_ids.append(str(res[0]))

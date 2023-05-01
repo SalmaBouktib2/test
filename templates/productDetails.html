@@ -92,7 +92,7 @@
       </div>
     </section>
 
-
+{% if productsRecom|length > 0:  %}
 
     <!-- Related -->
     <section class="section featured">
@@ -125,7 +125,8 @@
       </div>
 
     </section>
-
+          {% endif %}
+{% if recomByPople|length > 0:  %}
     <section class="section featured">
       <div class="top container">
         <h1>People also liked</h1>
@@ -133,7 +134,7 @@
       </div>
 
       <div class="product-center container">
-        {% for p in recomByPople%}
+        {% for p in recomByPople %}
         <div class="product-item">
           <div class="overlay">
             <a href="" class="product-thumb">
@@ -156,6 +157,7 @@
       </div>
 
     </section>
+        {% endif %}
 {% if boughtTogether|length > 0:  %}
     <section class="section featured">
       <div class="top container">
@@ -163,10 +165,6 @@
         <a href="#" class="view-more">View more</a>
       </div>
       <div>
-
-
-
-
 
       <div class="product-center container">
         {% for p in boughtTogether %}
