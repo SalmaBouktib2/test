@@ -15,7 +15,32 @@ def addRelBuy(u,p):
 def addLike(u, p):
     graph.create(Relationship(u, 'LIKE', p))
 
-
+def trending():
+    result = graph.run("match (p:USER)-[r:BUY]->(pr:PRODUCT) return (pr),count(r) order by count(r) desc limit 8")
+    lists = []
+    for p, c in result:
+        lists.append(p)
+    return lists
+def Cartrecom(name):
+    query = "match (u:USER{fullname:'"+name+"'})-[:LIKE]->(p:PRODUCT) return distinct (p)"
+    result = graph.run(query)
+    lists = []
+    for p in result:
+        lists.append(p[0])
+    print("******************list first",lists)
+    query = "match (u:USER{fullname:'"+name+"'})-[:LIKE]->(pro:PRODUCT) match (other:USER)-[:LIKE]->(p:PRODUCT) where u.sexe = other.sexe and pro.id <> p.id return distinct (p)"
+    result2 = graph.run(query)
+    for p in result2:
+        if p[0] not in lists:
+            lists.append(p[0])
+    print("******************list second", lists)
+    query = "match (u:USER{fullname:'"+name+"'})-[:LIKE]->(p:PRODUCT) match (other:USER)-[:LIKE]->(p:PRODUCT) match (other:USER)-[:BUY]->(pr:PRODUCT) where p.id <> pr.id return distinct (pr)"
+    result3 = graph.run(query)
+    print("******************list third", lists)
+    for p in result3:
+        if p[0] not in lists:
+            lists.append(p[0])
+    return lists
 class User(GraphObject):
     def __init__(self, username):
         self.username = username
