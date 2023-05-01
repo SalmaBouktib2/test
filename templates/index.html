@@ -332,7 +332,6 @@
       </div>
 
       <div class="product-center">
-        {%set i =1 %}
         {% for p in products%}
         <div class="product-item">
           <div class="overlay">
@@ -352,7 +351,6 @@
             <li><a href="/add_to_cart/{{p.id}}"> <i class="bx bx-cart"></i></a></li>
           </ul>
         </div>
-        {% set i = i +1 %}
         {% endfor %}
       </div>
     </section>
